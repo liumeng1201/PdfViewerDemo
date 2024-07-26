@@ -30,6 +30,7 @@ import android.widget.Toast;
 import android.widget.ViewAnimator;
 
 import com.artifex.mupdfdemo.Annotation;
+import com.artifex.mupdfdemo.FilePicker;
 import com.artifex.mupdfdemo.Hit;
 import com.artifex.mupdfdemo.MuPDFAlert;
 import com.artifex.mupdfdemo.MuPDFCore;
@@ -105,7 +106,7 @@ public class MuPDFActivity extends AppCompatActivity {
     private void initView() {
         SharedPreferencesUtil.init(getApplication());
 
-        muPDFReaderView = (MuPDFReaderView)findViewById(R.id.mu_pdf_mupdfreaderview);
+        muPDFReaderView = (MuPDFReaderView) findViewById(R.id.mu_pdf_mupdfreaderview);
 
         initToolsView();
         createPDF();
@@ -137,7 +138,7 @@ public class MuPDFActivity extends AppCompatActivity {
     }
 
     private void createPDF() {
-        mAlertBuilder  = new AlertDialog.Builder(this);
+        mAlertBuilder = new AlertDialog.Builder(this);
 
         // 通过MuPDFCore打开pdf文件
         muPDFCore = openFile(filePath);
@@ -146,8 +147,8 @@ public class MuPDFActivity extends AppCompatActivity {
         // 判断如果core为空，提示不能打开文件
         if (muPDFCore == null) {
             AlertDialog alert = mAlertBuilder.create();
-            alert.setTitle(com.lonelypluto.pdflibrary.R.string.cannot_open_document);
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(com.lonelypluto.pdflibrary.R.string.dismiss),
+            alert.setTitle(R.string.cannot_open_document);
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -164,7 +165,12 @@ public class MuPDFActivity extends AppCompatActivity {
             return;
         }
         // 显示
-        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, muPDFCore));
+        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, new FilePicker.FilePickerSupport() {
+            @Override
+            public void performPickFor(FilePicker picker) {
+                
+            }
+        }, muPDFCore));
         // Set up the page slider
         int smax = Math.max(muPDFCore.countPages() - 1, 1);
         mPageSliderRes = ((10 + smax - 1) / smax) * 2;
@@ -211,6 +217,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 打开文件
+     *
      * @param path 文件路径
      * @return
      */
@@ -235,7 +242,7 @@ public class MuPDFActivity extends AppCompatActivity {
     /**
      * 设置监听事件
      */
-    private void setListener(){
+    private void setListener() {
         // 设置MuPDFReaderView的监听事件
         setMuPDFReaderViewListener();
         // 设置页面拖动条监听事件
@@ -332,7 +339,7 @@ public class MuPDFActivity extends AppCompatActivity {
     /**
      * 设置MuPDFReaderView的监听事件
      */
-    private void setMuPDFReaderViewListener(){
+    private void setMuPDFReaderViewListener() {
         muPDFReaderView.setListener(new MuPDFReaderViewListener() {
             @Override
             public void onMoveToChild(int i) {
@@ -495,6 +502,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 更新当前是第多少页
+     *
      * @param index
      */
     private void updatePageNumView(int index) {
@@ -523,6 +531,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释点击事件
+     *
      * @param v
      */
     public void OnEditAnnotButtonClick(View v) {
@@ -532,6 +541,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 复制点击事件
+     *
      * @param v
      */
     public void OnCopyTextButtonClick(View v) {
@@ -539,12 +549,13 @@ public class MuPDFActivity extends AppCompatActivity {
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
         mAcceptMode = AcceptMode.CopyText;
         muPDFReaderView.setMode(MuPDFReaderView.Mode.Selecting);
-        mAnnotTypeText.setText(getString(com.lonelypluto.pdflibrary.R.string.copy_text));
-        showInfo(getString(com.lonelypluto.pdflibrary.R.string.select_text));
+        mAnnotTypeText.setText(getString(R.string.copy_text));
+        showInfo(getString(R.string.select_text));
     }
 
     /**
      * 工具栏 - 搜索框取消点击事件
+     *
      * @param v
      */
     public void OnCancelSearchButtonClick(View v) {
@@ -553,6 +564,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释取消点击事件
+     *
      * @param v
      */
     public void OnCancelMoreButtonClick(View v) {
@@ -590,6 +602,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释 - 高亮点击事件
+     *
      * @param v
      */
     public void OnHighlightButtonClick(View v) {
@@ -597,12 +610,13 @@ public class MuPDFActivity extends AppCompatActivity {
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
         mAcceptMode = AcceptMode.Highlight;
         muPDFReaderView.setMode(MuPDFReaderView.Mode.Selecting);
-        mAnnotTypeText.setText(com.lonelypluto.pdflibrary.R.string.pdf_tools_highlight);
-        showInfo(getString(com.lonelypluto.pdflibrary.R.string.select_text));
+        mAnnotTypeText.setText(R.string.pdf_tools_highlight);
+        showInfo(getString(R.string.select_text));
     }
 
     /**
      * 工具栏 - 注释 - 底部画线点击事件
+     *
      * @param v
      */
     public void OnUnderlineButtonClick(View v) {
@@ -610,12 +624,13 @@ public class MuPDFActivity extends AppCompatActivity {
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
         mAcceptMode = AcceptMode.Underline;
         muPDFReaderView.setMode(MuPDFReaderView.Mode.Selecting);
-        mAnnotTypeText.setText(com.lonelypluto.pdflibrary.R.string.pdf_tools_underline);
-        showInfo(getString(com.lonelypluto.pdflibrary.R.string.select_text));
+        mAnnotTypeText.setText(R.string.pdf_tools_underline);
+        showInfo(getString(R.string.select_text));
     }
 
     /**
      * 工具栏 - 注释 - 废弃线点击事件
+     *
      * @param v
      */
     public void OnStrikeOutButtonClick(View v) {
@@ -623,12 +638,13 @@ public class MuPDFActivity extends AppCompatActivity {
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
         mAcceptMode = AcceptMode.StrikeOut;
         muPDFReaderView.setMode(MuPDFReaderView.Mode.Selecting);
-        mAnnotTypeText.setText(com.lonelypluto.pdflibrary.R.string.pdf_tools_strike_out);
-        showInfo(getString(com.lonelypluto.pdflibrary.R.string.select_text));
+        mAnnotTypeText.setText(R.string.pdf_tools_strike_out);
+        showInfo(getString(R.string.select_text));
     }
 
     /**
      * 工具栏 - 注释 - 签字点击事件
+     *
      * @param v
      */
     public void OnInkButtonClick(View v) {
@@ -636,12 +652,13 @@ public class MuPDFActivity extends AppCompatActivity {
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
         mAcceptMode = AcceptMode.Ink;
         muPDFReaderView.setMode(MuPDFReaderView.Mode.Drawing);
-        mAnnotTypeText.setText(com.lonelypluto.pdflibrary.R.string.pdf_tools_ink);
-        showInfo(getString(com.lonelypluto.pdflibrary.R.string.pdf_tools_draw_annotation));
+        mAnnotTypeText.setText(R.string.pdf_tools_ink);
+        showInfo(getString(R.string.pdf_tools_draw_annotation));
     }
 
     /**
      * 工具栏 - 注释 - 删除注释点击事件
+     *
      * @param v
      */
     public void OnDeleteButtonClick(View v) {
@@ -654,6 +671,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释 - 取消删除注释点击事件
+     *
      * @param v
      */
     public void OnCancelDeleteButtonClick(View v) {
@@ -666,6 +684,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释 - 取消点击事件
+     *
      * @param v
      */
     public void OnCancelAcceptButtonClick(View v) {
@@ -688,6 +707,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏 - 注释 - 确定点击事件
+     *
      * @param v
      */
     public void OnAcceptButtonClick(View v) {
@@ -698,7 +718,7 @@ public class MuPDFActivity extends AppCompatActivity {
                 if (pageView != null)
                     success = pageView.copySelection();
                 mTopBarMode = TopBarMode.Main;
-                showInfo(success ? getString(com.lonelypluto.pdflibrary.R.string.copied_to_clipboard) : getString(com.lonelypluto.pdflibrary.R.string.no_text_selected));
+                showInfo(success ? getString(R.string.copied_to_clipboard) : getString(R.string.no_text_selected));
                 break;
             case Highlight:
                 // 高亮
@@ -707,7 +727,7 @@ public class MuPDFActivity extends AppCompatActivity {
                 }
                 mTopBarMode = TopBarMode.Annot;
                 if (!success) {
-                    showInfo(getString(com.lonelypluto.pdflibrary.R.string.no_text_selected));
+                    showInfo(getString(R.string.no_text_selected));
                 }
                 break;
             case Underline:
@@ -715,7 +735,7 @@ public class MuPDFActivity extends AppCompatActivity {
                     success = pageView.markupSelection(Annotation.Type.UNDERLINE);
                 mTopBarMode = TopBarMode.Annot;
                 if (!success)
-                    showInfo(getString(com.lonelypluto.pdflibrary.R.string.no_text_selected));
+                    showInfo(getString(R.string.no_text_selected));
                 break;
 
             case StrikeOut:
@@ -723,7 +743,7 @@ public class MuPDFActivity extends AppCompatActivity {
                     success = pageView.markupSelection(Annotation.Type.STRIKEOUT);
                 mTopBarMode = TopBarMode.Annot;
                 if (!success)
-                    showInfo(getString(com.lonelypluto.pdflibrary.R.string.no_text_selected));
+                    showInfo(getString(R.string.no_text_selected));
                 break;
 
             case Ink:
@@ -731,7 +751,7 @@ public class MuPDFActivity extends AppCompatActivity {
                     success = pageView.saveDraw();
                 mTopBarMode = TopBarMode.Annot;
                 if (!success)
-                    showInfo(getString(com.lonelypluto.pdflibrary.R.string.nothing_to_save));
+                    showInfo(getString(R.string.nothing_to_save));
                 break;
         }
         mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
@@ -740,6 +760,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 设置按钮是否可点击
+     *
      * @param button
      * @param enabled
      */
@@ -750,6 +771,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 开始搜索
+     *
      * @param direction 搜索内容
      */
     private void search(int direction) {
@@ -762,6 +784,7 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 设置超链接高亮显示
+     *
      * @param highlight
      */
     private void setLinkHighlight(boolean highlight) {
@@ -774,15 +797,16 @@ public class MuPDFActivity extends AppCompatActivity {
 
     /**
      * 工具栏弹出提示信息
+     *
      * @param message 提示内容
      */
     private void showInfo(String message) {
 
         LayoutInflater inflater = getLayoutInflater();
-        View toastLayout = inflater.inflate(com.lonelypluto.pdflibrary.R.layout.toast,
-                (ViewGroup) findViewById(com.lonelypluto.pdflibrary.R.id.toast_root_view));
+        View toastLayout = inflater.inflate(R.layout.toast,
+                (ViewGroup) findViewById(R.id.toast_root_view));
 
-        TextView header = (TextView) toastLayout.findViewById(com.lonelypluto.pdflibrary.R.id.toast_message);
+        TextView header = (TextView) toastLayout.findViewById(R.id.toast_message);
         header.setText(message);
 
         Toast toast = new Toast(getApplicationContext());
@@ -871,19 +895,19 @@ public class MuPDFActivity extends AppCompatActivity {
                 }
                 switch (result.buttonGroupType) {
                     case OkCancel:
-                        mAlertDialog.setButton(AlertDialog.BUTTON2, getString(com.lonelypluto.pdflibrary.R.string.cancel), listener);
+                        mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.cancel), listener);
                         pressed[1] = MuPDFAlert.ButtonPressed.Cancel;
                     case Ok:
-                        mAlertDialog.setButton(AlertDialog.BUTTON1, getString(com.lonelypluto.pdflibrary.R.string.okay), listener);
+                        mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.okay), listener);
                         pressed[0] = MuPDFAlert.ButtonPressed.Ok;
                         break;
                     case YesNoCancel:
-                        mAlertDialog.setButton(AlertDialog.BUTTON3, getString(com.lonelypluto.pdflibrary.R.string.cancel), listener);
+                        mAlertDialog.setButton(AlertDialog.BUTTON3, getString(R.string.cancel), listener);
                         pressed[2] = MuPDFAlert.ButtonPressed.Cancel;
                     case YesNo:
-                        mAlertDialog.setButton(AlertDialog.BUTTON1, getString(com.lonelypluto.pdflibrary.R.string.yes), listener);
+                        mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.yes), listener);
                         pressed[0] = MuPDFAlert.ButtonPressed.Yes;
-                        mAlertDialog.setButton(AlertDialog.BUTTON2, getString(com.lonelypluto.pdflibrary.R.string.no), listener);
+                        mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.no), listener);
                         pressed[1] = MuPDFAlert.ButtonPressed.No;
                         break;
                 }
@@ -977,10 +1001,10 @@ public class MuPDFActivity extends AppCompatActivity {
                 }
             };
             AlertDialog alert = mAlertBuilder.create();
-            alert.setTitle(com.lonelypluto.pdflibrary.R.string.dialog_title);
-            alert.setMessage(getString(com.lonelypluto.pdflibrary.R.string.document_has_changes_save_them));
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(com.lonelypluto.pdflibrary.R.string.yes), listener);
-            alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(com.lonelypluto.pdflibrary.R.string.no), listener);
+            alert.setTitle(R.string.dialog_title);
+            alert.setMessage(getString(R.string.document_has_changes_save_them));
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), listener);
+            alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), listener);
             alert.show();
         } else {
             finish();

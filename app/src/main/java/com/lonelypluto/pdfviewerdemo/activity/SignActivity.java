@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.artifex.mupdfdemo.FilePicker;
 import com.artifex.mupdfdemo.Hit;
 import com.artifex.mupdfdemo.MuPDFCore;
 import com.artifex.mupdfdemo.MuPDFPageAdapter;
@@ -49,12 +50,14 @@ public class SignActivity extends AppCompatActivity {
     private ImageView iv_sign;
 
     private SavePdfTask savePdfTask;
+
     /*
      * 用于异步存储
      * */
     class SavePdfTask extends AsyncTask {
 
         SavePdf savePdf;
+
         public SavePdfTask(SavePdf savePdf) {
             this.savePdf = savePdf;
         }
@@ -88,7 +91,7 @@ public class SignActivity extends AppCompatActivity {
     private void initView() {
 
         // 电子签章
-        btn_sign = (Button)findViewById(R.id.btn_sign);
+        btn_sign = (Button) findViewById(R.id.btn_sign);
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +101,7 @@ public class SignActivity extends AppCompatActivity {
         });
 
         // 保存
-        btn_save = (Button)findViewById(R.id.btn_save);
+        btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +127,7 @@ public class SignActivity extends AppCompatActivity {
                 float density = metric.density;
                 savePdf.setDensity(density);
 
-                Bitmap bitmap = getBitmap(SignActivity.this, com.lonelypluto.pdflibrary.R.mipmap.ic_launcher);
+                Bitmap bitmap = getBitmap(SignActivity.this, R.mipmap.ic_launcher);
                 savePdf.setBitmap(bitmap);
 
                 savePdfTask = new SavePdfTask(savePdf);
@@ -132,17 +135,17 @@ public class SignActivity extends AppCompatActivity {
             }
         });
 
-        vdhDeepLayout = (VDHDeepLayout)findViewById(R.id.VDHDeepLayout);
-        iv_sign = (ImageView)findViewById(R.id.iv_sign);
+        vdhDeepLayout = (VDHDeepLayout) findViewById(R.id.VDHDeepLayout);
+        iv_sign = (ImageView) findViewById(R.id.iv_sign);
 
-        muPDFReaderView = (MuPDFReaderView)findViewById(R.id.open_pdf_mupdfreaderview);
+        muPDFReaderView = (MuPDFReaderView) findViewById(R.id.open_pdf_mupdfreaderview);
         // 通过MuPDFCore打开pdf文件
         muPDFCore = openFile(filePath);
         // 判断如果core为空，提示不能打开文件
         if (muPDFCore == null) {
             AlertDialog alert = new AlertDialog.Builder(this).create();
-            alert.setTitle(com.lonelypluto.pdflibrary.R.string.cannot_open_document);
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(com.lonelypluto.pdflibrary.R.string.dismiss),
+            alert.setTitle(R.string.cannot_open_document);
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -159,19 +162,24 @@ public class SignActivity extends AppCompatActivity {
             return;
         }
         // 显示
-        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, muPDFCore));
+        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, new FilePicker.FilePickerSupport() {
+            @Override
+            public void performPickFor(FilePicker picker) {
+
+            }
+        }, muPDFCore));
     }
 
     private static Bitmap getBitmap(Context context, int vectorDrawableId) {
-        Bitmap bitmap=null;
-        if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP){
+        Bitmap bitmap = null;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             Drawable vectorDrawable = context.getDrawable(vectorDrawableId);
             bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
                     vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             vectorDrawable.draw(canvas);
-        }else {
+        } else {
             bitmap = BitmapFactory.decodeResource(context.getResources(), vectorDrawableId);
         }
         return bitmap;
@@ -179,6 +187,7 @@ public class SignActivity extends AppCompatActivity {
 
     /**
      * 打开文件
+     *
      * @param path 文件路径
      * @return
      */

@@ -29,7 +29,7 @@
                 android:background="@drawable/pdf_tools_btn_bg"
                 android:contentDescription="@string/pdf_tools_toggle_links"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_link_variant_white_48dp" />
+                android:src="@mipmap/ic_link_variant_white_48dp" />
 
             <ImageButton
                 android:id="@+id/reflowButton"
@@ -43,7 +43,7 @@
                 android:contentDescription="@string/pdf_tools_toggle_reflow_mode"
                 android:onClick="OnEditAnnotButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_pencil_white_48dp" />
+                android:src="@mipmap/ic_pencil_white_48dp" />
 
             <ImageButton
                 android:id="@+id/outlineButton"
@@ -69,7 +69,7 @@
                 android:background="@drawable/pdf_tools_btn_bg"
                 android:contentDescription="@string/pdf_tools_search_document"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_search_white_48dp" />
+                android:src="@mipmap/ic_search_white_48dp" />
 
             <ImageButton
                 android:id="@+id/moreButton"
@@ -83,7 +83,7 @@
                 android:contentDescription="@string/pdf_tools_copy"
                 android:onClick="OnCopyTextButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_content_copy_white_48dp" />
+                android:src="@mipmap/ic_content_copy_white_48dp" />
 
         </RelativeLayout>
 
@@ -105,7 +105,7 @@
                 android:contentDescription="@string/cancel"
                 android:onClick="OnCancelSearchButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_close_white_48dp" />
+                android:src="@mipmap/ic_close_white_48dp" />
 
             <EditText
                 android:id="@+id/searchText"
@@ -131,7 +131,7 @@
                 android:background="@drawable/pdf_tools_btn_bg"
                 android:contentDescription="@string/pdf_tools_search_backwards"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_arrow_left_white_48dp" />
+                android:src="@mipmap/ic_arrow_left_white_48dp" />
 
             <ImageButton
                 android:id="@+id/searchForward"
@@ -144,7 +144,7 @@
                 android:background="@drawable/pdf_tools_btn_bg"
                 android:contentDescription="@string/pdf_tools_search_forwards"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_arrow_right_white_48dp" />
+                android:src="@mipmap/ic_arrow_right_white_48dp" />
 
         </RelativeLayout>
 
@@ -165,7 +165,7 @@
                 android:contentDescription="@string/cancel"
                 android:onClick="OnCancelMoreButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_close_white_48dp" />
+                android:src="@mipmap/ic_close_white_48dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                 android:contentDescription="@string/pdf_tools_highlight"
                 android:onClick="OnHighlightButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_format_color_fill_white_48dp" />
+                android:src="@mipmap/ic_format_color_fill_white_48dp" />
 
             <ImageButton
                 android:id="@+id/underlineButton"
@@ -192,7 +192,7 @@
                 android:contentDescription="@string/pdf_tools_underline"
                 android:onClick="OnUnderlineButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_format_vertical_align_bottom_white_48dp" />
+                android:src="@mipmap/ic_format_vertical_align_bottom_white_48dp" />
 
             <ImageButton
                 android:id="@+id/strikeOutButton"
@@ -206,7 +206,7 @@
                 android:contentDescription="@string/pdf_tools_strike_out"
                 android:onClick="OnStrikeOutButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_format_vertical_align_center_white_48dp" />
+                android:src="@mipmap/ic_format_vertical_align_center_white_48dp" />
 
             <ImageButton
                 android:id="@+id/inkButton"
@@ -220,7 +220,7 @@
                 android:contentDescription="@string/pdf_tools_ink"
                 android:onClick="OnInkButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_pencil_white_48dp" />
+                android:src="@mipmap/ic_pencil_white_48dp" />
 
         </RelativeLayout>
 
@@ -242,7 +242,7 @@
                 android:contentDescription="@string/cancel"
                 android:onClick="OnCancelDeleteButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_close_white_48dp" />
+                android:src="@mipmap/ic_close_white_48dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -268,7 +268,7 @@
                 android:contentDescription="@string/pdf_tools_delete"
                 android:onClick="OnDeleteButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_delete_white_48dp" />
+                android:src="@mipmap/ic_delete_white_48dp" />
 
         </RelativeLayout>
 
@@ -290,7 +290,7 @@
                 android:contentDescription="@string/cancel"
                 android:onClick="OnCancelAcceptButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_close_white_48dp" />
+                android:src="@mipmap/ic_close_white_48dp" />
 
             <TextView
                 android:id="@+id/annotType"
@@ -316,7 +316,7 @@
                 android:contentDescription="@string/pdf_tools_accept"
                 android:onClick="OnAcceptButtonClick"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_check_white_48dp" />
+                android:src="@mipmap/ic_check_white_48dp" />
         </RelativeLayout>
     </ViewAnimator>
 

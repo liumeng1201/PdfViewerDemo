@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.artifex.mupdfdemo.FilePicker;
 import com.artifex.mupdfdemo.Hit;
 import com.artifex.mupdfdemo.MuPDFCore;
 import com.artifex.mupdfdemo.MuPDFPageAdapter;
@@ -33,6 +34,7 @@ public class BasePDFActivity extends AppCompatActivity {
 
     private MuPDFCore muPDFCore;// 加载mupdf.so文件
     private MuPDFReaderView muPDFReaderView;// 显示pdf的view
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class BasePDFActivity extends AppCompatActivity {
      */
     private void initView() {
 
-        muPDFReaderView = (MuPDFReaderView)findViewById(R.id.open_pdf_mupdfreaderview);
+        muPDFReaderView = (MuPDFReaderView) findViewById(R.id.open_pdf_mupdfreaderview);
         // 通过MuPDFCore打开pdf文件
         muPDFCore = openFile(filePath);
         // 判断如果core为空，提示不能打开文件
@@ -70,11 +72,16 @@ public class BasePDFActivity extends AppCompatActivity {
             return;
         }
         // 显示
-        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, muPDFCore));
+        muPDFReaderView.setAdapter(new MuPDFPageAdapter(this, new FilePicker.FilePickerSupport() {
+            @Override
+            public void performPickFor(FilePicker picker) {
+            }
+        }, muPDFCore));
     }
 
     /**
      * 打开文件
+     *
      * @param path 文件路径
      * @return
      */

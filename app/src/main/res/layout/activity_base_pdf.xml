@@ -8,6 +8,5 @@
     <com.artifex.mupdfdemo.MuPDFReaderView
         android:id="@+id/open_pdf_mupdfreaderview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 </RelativeLayout>
