@@ -1,4 +1,9 @@
 # PdfViewerDemo
+基于LonelyPluto/PdfViewerDemo项目 [LonelyPluto/PdfViewerDemo](https://github.com/LonelyPluto/PdfViewerDemo) ，由于原作者未提供基于mupdf的定制化代码导致无法构建armv8版本so库，补充该定制化部分代码。
+支持各处理器的so库可在次下载[so文件](https://github.com/liumeng1201/PdfViewerDemo/tree/master/app/src/main/jniLibs)，可直接引用原作者的开源库，并将需要的so添加至自己的项目中并配置build.gradle文件来指定要打包进apk的so文件。
+
+mupdf基于1.9版本，相关的源码已打包见 mupdf-1.9.zip 压缩包，已包含相关改动(修改批注笔迹颜色、笔迹粗细)，可参考源码中 platform\android\viewer\ReadMe.txt 文件进行编译(在Centos7系统下，安装openjdk8、make、gcc之后即可正常编译so)。
+
 pdf阅读器，基于MuPDF开发，可横竖切换浏览、多种批注功能、电子签章\
 PdfViewerDemo is developed within the [mupdf](https://mupdf.com/downloads/) project.
 # Screenshots
